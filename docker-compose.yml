@@ -1,0 +1,38 @@
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysql-dbcarsparts
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: dbcarsparts
+    ports:
+      - "3306:3306"  # Оставляем 3307, если у тебя на 3306 уже есть локальный MySQL
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  backend:
+    build:
+      context: .  # Контекст правильный, оставляем "."
+    container_name: nestjs-backend
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      NODE_OPTIONS: --experimental-modules
+      DB_TYPE: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306  # Должно быть 3306, потому что в контейнере MySQL слушает на 3306!
+      DB_USER: root
+      DB_PASS: root
+      DB_NAME: dbcarsparts
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run start:dev
+
+volumes:
+  mysql_data:

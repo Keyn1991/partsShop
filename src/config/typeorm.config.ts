@@ -11,5 +11,5 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
   entities: [__dirname + '/../**/*.entity.{ts,js}'],
-  synchronize: true, // Włączone tylko w środowisku developerskim
+  synchronize: true,
 };
