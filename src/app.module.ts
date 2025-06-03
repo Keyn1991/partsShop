@@ -13,7 +13,7 @@ import { AppService } from './app.service';
     ConfigModule.forRoot({
       isGlobal: true, // Ustawia ConfigModule jako globalny
       envFilePath: '.env', // Można jawnie wskazać (Nest sam też szuka)
-      ignoreEnvFile: process.env.NODE_ENV === 'production', // Na produkcji zmienne będą z systemu/Dockera
+      ignoreEnvFile: process.env.NODE_ENV === 'development', // Na produkcji zmienne będą z systemu/Dockera
     }),
     DatabaseModule,
     PartsModule,
